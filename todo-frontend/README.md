@@ -1,46 +1,101 @@
-# Getting Started with Create React App
+# To-Do List Application (Node.js, React, TypeScript)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple To-Do List application built using **Node.js**, **Express**, **SQLite**, **Prisma**, **React**, and **TypeScript**. The application allows users to add, view, update, delete tasks, and filter them based on completion status.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Backend:
 
-### `npm start`
+- RESTful API built with **Node.js** and **Express**
+- Task management routes:
+  - `GET /api/tasks`: Get all tasks
+  - `POST /api/tasks`: Create a new task
+  - `PATCH /api/tasks/:id`: Update task title or mark as complete/incomplete
+  - `DELETE /api/tasks/:id`: Delete a task by its ID
+- **SQLite** database for storage
+- ORM: **Prisma**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Frontend:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Built with **React** and **TypeScript**
+- Form to add tasks
+- Task list with the ability to delete or update tasks
+- Task filtering (all/completed/uncompleted)
+- State management using **React Hooks**
+- Communication with backend via **Axios**
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- **Node.js** and **npm** installed
+- **SQLite** (optional, but included via Prisma migrations)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Navigate to the backend directory:
 
-### `npm run eject`
+   ```bash
+   cd backend
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Install dependencies:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Set up the database using **Prisma**:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 
-## Learn More
+4. Start the backend server:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   npm run dev
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   The backend will start at `http://localhost:5000`.
+
+#### Frontend
+
+1. Navigate to the frontend directory:
+
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the frontend server:
+
+   ```bash
+   npm start
+   ```
+
+   The frontend will start at `http://localhost:3000`.
+
+## Usage
+
+- **Add a Task**: Enter the task title in the form and click "Add Task".
+- **View Tasks**: All tasks are listed, and you can toggle between completed and incomplete tasks.
+- **Update a Task**: Click the "Mark as Complete" or "Mark as Incomplete" button to update task status.
+- **Delete a Task**: Click the "Delete" button to remove the task from the list.
+- **Filter Tasks**: Use the filter dropdown to view all, completed, or uncompleted tasks.
+
+## Technologies Used
+
+- **Backend**: Node.js, Express, SQLite, Prisma, TypeScript
+- **Frontend**: React, Axios, TypeScript
+
+## License
+
+This project is licensed under the MIT License.

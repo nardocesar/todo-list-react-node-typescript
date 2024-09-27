@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchTasks, deleteTask, updateTask } from "../services/taskService";
+import { CompleteButton } from "./CompleteButton";
+import { TaskStatus } from "./TaskFilter";
 
 interface Task {
   id: number;
@@ -7,7 +9,18 @@ interface Task {
   completed: boolean;
 }
 
-const TaskList: React.FC<{ taskCounter: number }> = ({ taskCounter }) => {
+const filterTasks = (filter: TaskStatus, task: Task) => {
+  if (filter === "completed" && task.completed) return task;
+  if (filter === "uncompleted" && !task.completed) return task;
+  if (filter === "all") return task;
+
+  return null;
+};
+
+const TaskList: React.FC<{ taskCounter: number; filter: TaskStatus }> = ({
+  taskCounter,
+  filter,
+}) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -29,26 +42,33 @@ const TaskList: React.FC<{ taskCounter: number }> = ({ taskCounter }) => {
   };
 
   return (
-    <div>
-      <h2>Task List</h2>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <span
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-              }}
-            >
-              {task.title}
-            </span>
-            <button
-              onClick={() => handleToggleComplete(task.id, task.completed)}
-            >
-              {task.completed ? "Mark as Incomplete" : "Mark as Complete"}
-            </button>
-            <button onClick={() => handleDelete(task.id)}>Delete</button>
-          </li>
-        ))}
+    <div className="flex flex-col gap-2">
+      <h2 className="text-xl font-bold">Task List</h2>
+      <ul className="flex flex-col gap-2">
+        {tasks
+          .filter((item) => filterTasks(filter, item))
+          .map((task) => (
+            <li className="flex gap-2 items-center" key={task.id}>
+              <CompleteButton
+                completed={task.completed}
+                onClick={() => handleToggleComplete(task.id, task.completed)}
+              />
+              <span
+                style={{
+                  textDecoration: task.completed ? "line-through" : "none",
+                }}
+              >
+                {task.title}
+              </span>
+
+              <button
+                className="text-sm font-bold"
+                onClick={() => handleDelete(task.id)}
+              >
+                x
+              </button>
+            </li>
+          ))}
       </ul>
     </div>
   );
