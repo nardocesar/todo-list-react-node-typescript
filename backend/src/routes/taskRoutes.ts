@@ -1,15 +1,26 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import {
-  createTask,
-  deleteTask,
   getTasks,
+  createTask,
   updateTask,
+  deleteTask,
 } from "../controllers/taskController";
 const router = Router();
 
-router.get("/", getTasks);
-router.post("/", createTask);
-router.patch("/:id", updateTask);
-router.delete("/:id", deleteTask);
+router.get("/", async (req: Request, res: Response) => {
+  await getTasks(req, res);
+});
+
+router.post("/", async (req: Request, res: Response) => {
+  await createTask(req, res);
+});
+
+router.patch("/:id", async (req: Request, res: Response) => {
+  await updateTask(req, res);
+});
+
+router.delete("/:id", async (req: Request, res: Response) => {
+  await deleteTask(req, res);
+});
 
 export default router;
